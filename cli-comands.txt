@@ -1,0 +1,3 @@
+nest g module tasks  --> to generate a module within the project with the name tasks
+nest g controller tasks --no-spec  --> to generate a controller in the project for the tasks module
+nest g service tasks --no-spec --> to generate a service in the project for the tasks module
