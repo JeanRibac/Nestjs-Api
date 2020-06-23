@@ -5,6 +5,7 @@ import { TaskRepository } from './task.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Task } from './task.entity';
 import { TaskStatus } from './task.status.enum';
+import { User } from 'src/auth/user.entity';
 
 @Injectable()
 export class TasksService {
@@ -13,8 +14,11 @@ export class TasksService {
         private taskRepository: TaskRepository
     ){}
 
-    async getTasks(filterDto: GetTasksFilterDto): Promise<Task[]>{
-        return this.taskRepository.getTasks(filterDto);
+    async getTasks(
+        filterDto: GetTasksFilterDto, 
+        user: User
+    ): Promise<Task[]>{
+        return this.taskRepository.getTasks(filterDto, user);
     }
 
     //old way
@@ -38,8 +42,8 @@ export class TasksService {
     // }
 
     //data persistence way
-    async getTaskById(id: number) :Promise<Task>{
-        const found = await this.taskRepository.findOne(id);
+    async getTaskById(id: number, user: User) :Promise<Task>{
+        const found = await this.taskRepository.findOne({where:{id, userId: user.id}});
         if(!found){
             throw new NotFoundException(`Task with ID "${id}" not found`);
         }
@@ -56,8 +60,11 @@ export class TasksService {
     // }
 
     //data persistence way
-    async createTask(CreateTaskDto: CreateTaskDto){
-        return this.taskRepository.createTask(CreateTaskDto);
+    async createTask(
+        CreateTaskDto: CreateTaskDto,
+        user:User,
+    ): Promise<Task>{
+        return this.taskRepository.createTask(CreateTaskDto, user);
     }   
 
     //old way
@@ -74,8 +81,8 @@ export class TasksService {
     // }
 
     //data persistence way
-    async deleteTask(id: number): Promise<void> {
-        const deleted = await this.taskRepository.delete(id); 
+    async deleteTask(id: number, user: User): Promise<void> {
+        const deleted = await this.taskRepository.delete({id, userId: user.id}); 
         if(deleted.affected === 0){
             throw new NotFoundException(`Task with ID "${id}" not found`);
         }
@@ -90,8 +97,8 @@ export class TasksService {
     // }
 
     //data persistence way
-    async updateTaskStatus(id: number, status: TaskStatus): Promise<Task>{
-        const task = await this.getTaskById(id);
+    async updateTaskStatus(id: number, status: TaskStatus, user: User): Promise<Task>{
+        const task = await this.getTaskById(id, user);
         task.status = status;
         await task.save();
         return task;
