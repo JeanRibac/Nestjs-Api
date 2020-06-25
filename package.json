@@ -1,0 +1,20 @@
+{
+  "name": "nestjs-task-management",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "production": "cd client && npm run build && cd .. && cd server && npm run start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JeanRibac/Nestjs-Api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JeanRibac/Nestjs-Api/issues"
+  },
+  "homepage": "https://github.com/JeanRibac/Nestjs-Api#readme"
+}
