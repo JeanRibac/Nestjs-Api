@@ -71,16 +71,19 @@ class TasksPage extends Component {
     if (!tasksStore.tasks.length) {
       return <EmptyTasksPlaceholder>No tasks available. Create one?</EmptyTasksPlaceholder>
     }
-
-    return tasksStore.tasks.map(task => (
-      <Task
-        key={task.id}
-        id={task.id}
-        title={task.title}
-        description={task.description}
-        status={task.status}
-      />
-    ));
+    // console.log(tasksStore.tasks)
+    return tasksStore.tasks.map(task => {
+      // console.log(task);
+      return (
+        <Task
+          key={task.id}
+          id={task.id}
+          title={task.title}
+          description={task.description}
+          status={task.status}
+        />
+      )}
+    )
   };
 
   render() {

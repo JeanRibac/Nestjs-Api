@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import DevTools from 'mobx-react-devtools'
 import { Route } from "react-router-dom";
 import { inject, observer } from 'mobx-react';
 
@@ -18,6 +19,7 @@ class App extends Component {
         <Route path="/signup/" component={SignUpPage} />
         <Route exact path="/tasks" component={TasksPage} />
         <Route exact path="/tasks/create" component={CreateTaskPage} />
+        <DevTools/>
       </Fragment>
     );
   }
