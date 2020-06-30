@@ -3,8 +3,8 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { UserRepository } from './user.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import {JwtModule} from '@nestjs/jwt';
-import {PassportModule} from "@nestjs/passport";
+import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from "@nestjs/passport";
 import { JwtStrategy } from './jwt.strategy';
 import * as config from 'config';
 

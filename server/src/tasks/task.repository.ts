@@ -36,7 +36,7 @@ export class TaskRepository extends Repository<Task> {
     async createTask(
         createTaskDto: CreateTaskDto,
         user: User,
-    ): Promise<Task>{
+    ): Promise<Task> {
         const { title, description } = createTaskDto;
         const task = new Task();
         task.title = title;
@@ -46,9 +46,7 @@ export class TaskRepository extends Repository<Task> {
 
         try {
             await task.save();
-
             delete task.user;
-            
             return task;
         } catch (error) {
             this.logger.error(`Failed to create task for user "${user.username}, Data: ${JSON.stringify(createTaskDto)}", error.stack`)
