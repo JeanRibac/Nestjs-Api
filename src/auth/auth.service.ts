@@ -32,7 +32,6 @@ export class AuthService {
         try{
              result = await newUser.save();
         }catch(err){
-            console.log(err.code)
             if(err.code === 11000){ //duplicate username error code
                 throw new ConflictException("Username already exists")
             }else throw new InternalServerErrorException()
@@ -49,7 +48,7 @@ export class AuthService {
             const hash = bcrypt.hashSync(password, salt);
             const isMatch = hash === username.password;
             if (isMatch) {foundUsername = username.name}
-            else throw new UnauthorizedException("Invalid credentials")
+            else throw new UnauthorizedException("Invalid credentials!")
 
             const payload: JwtPayload = { username: foundUsername };
             const accessToken = await this.jwtService.sign(payload);
@@ -57,7 +56,7 @@ export class AuthService {
 
             return { accessToken };
         }else if(!username){
-            throw new UnauthorizedException("Invalid credentials")
+            throw new UnauthorizedException("Invalid credentials!")
         }
     }
 }
