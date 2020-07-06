@@ -6,6 +6,7 @@ import * as bcrypt from 'bcrypt';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { JwtPayload } from './jwt-payload.interface';
 import { UserInterface } from './auth.model';
+import { TaskInterface } from '../tasks/task.model';
 
 @Injectable()
 export class AuthService {
@@ -30,16 +31,16 @@ export class AuthService {
         })
         let result;
         try{
-             result = await newUser.save();
+            result = await newUser.save();
+            return result;
         }catch(err){
             if(err.code === 11000){ //duplicate username error code
                 throw new ConflictException("Username already exists")
             }else throw new InternalServerErrorException()
         }
-        return result;
     }
 
-    async signIn(authCredentialsDto: AuthCredentialsDto):Promise<{accessToken: string}>{
+    async signIn(authCredentialsDto: AuthCredentialsDto):Promise<{ accessToken: string }>{
         const {name, password} = authCredentialsDto;
         const username = await this.userModel.findOne({name})
         if(username) {
@@ -50,9 +51,9 @@ export class AuthService {
             if (isMatch) {foundUsername = username.name}
             else throw new UnauthorizedException("Invalid credentials!")
 
-            const payload: JwtPayload = { username: foundUsername };
+            const payload: JwtPayload = { name: foundUsername };
             const accessToken = await this.jwtService.sign(payload);
-            this.logger.debug(`Generated JWT Token with payload ${JSON.stringify(payload)}`)
+            // this.logger.debug(`Generated JWT Token with payload ${JSON.stringify(payload)}`)
 
             return { accessToken };
         }else if(!username){

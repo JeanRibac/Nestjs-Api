@@ -1,5 +1,6 @@
 import * as mongoose from "mongoose";
 import { TaskStatus } from './task.status.enum';
+import { ObjectID } from 'mongodb';
 
 export const TaskSchema = new mongoose.Schema({
   title:{
@@ -14,10 +15,10 @@ export const TaskSchema = new mongoose.Schema({
     type: TaskStatus,
     required: false,
   },
-  user:[{
+  user:{
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
-  }],
+  },
 })
 
 export interface TaskInterface {
@@ -25,5 +26,5 @@ export interface TaskInterface {
   title: string,
   description: string,
   status: TaskStatus,
-  user: string,
+  user: ObjectID,
 }
