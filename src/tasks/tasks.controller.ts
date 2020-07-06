@@ -43,9 +43,9 @@ export class TasksController {
     @Put("/:id/status")
     updateTaskStatus(
         @Param('id') id: ObjectID,
-        @Body('status') status: TaskStatus,
-        // @GetUser() user: User
+        @Body('status', TaskStatusValidationPipe) status: TaskStatus,
+        @GetUser() user: UserInterface
     ):Promise<TaskInterface>{
-        return this.tasksService.updateTaskStatus(id, status);
+        return this.tasksService.updateTaskStatus(id, user, status);
     }
 }

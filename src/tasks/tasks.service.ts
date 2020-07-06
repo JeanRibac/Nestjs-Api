@@ -60,13 +60,7 @@ export class TasksService {
 
     async createTask(createTaskDto: CreateTaskDto, user: UserInterface,): Promise<TaskInterface>{
       const { title, description } = createTaskDto;
-      const task = {
-        title,
-        description,
-        status: TaskStatus.OPEN,
-        user
-      }
-      // task.user = user;
+      const task = {title, description, status: TaskStatus.OPEN, user}
       try {
           const newTask = await this.taskModel.create(task);
           const oldUser = await this.userModel.findById(user.id);
@@ -78,26 +72,20 @@ export class TasksService {
           return newTask;
       } catch (error) {
         console.log(error)
-          this.logger.error(`Failed to create task, provided data was: ${JSON.stringify(createTaskDto)}", error.stack`)
+          this.logger.error(`Failed to create task, provided data was: ${JSON.stringify(createTaskDto)}", ${error.stack}`)
       }
     }
 
     async deleteTask(id: ObjectID, user: UserInterface): Promise<void> {
-      // console.log(`id: ${id}`);
-      // console.log(`user: ${user}`)
-      // const found = await this.getTaskById(id, user);
-      // console.log(`found: ${found}`);
-      const deleted = await this.taskModel.findOneAndRemove({id, user: user.id});
+      const deleted = await this.taskModel.findOneAndRemove({_id: id, user: user.id});
       console.log(deleted)
       if(!deleted){
           throw new NotFoundException(`Task with ID "${id}" not found`);
       }
     }
 
-    async updateTaskStatus(_id: ObjectID, status: TaskStatus): Promise<TaskInterface>{
-      const task = await this.taskModel.findById(_id);
-      task.status = status;
-      await task.save();
+    async updateTaskStatus(id: ObjectID,  user: UserInterface, status: TaskStatus): Promise<TaskInterface>{
+      const task = await this.taskModel.findOneAndUpdate({_id: id, user: user.id}, { status: status }, {new: true});
       return task;
     }
 }
