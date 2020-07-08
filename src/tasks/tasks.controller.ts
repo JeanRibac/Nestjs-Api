@@ -9,7 +9,7 @@ import { TaskStatus } from './task.status.enum';
 import { UserInterface } from 'src/auth/auth.model';
 import { GetUser } from 'src/auth/get-user.decorator';
 import { TaskInterface } from './task.model';
-import { ObjectID } from 'typeorm';
+import { ObjectID } from 'mongodb';
 
 @Controller('/tasks')
 @UseGuards(AuthGuard())
@@ -46,6 +46,7 @@ export class TasksController {
         @Body('status', TaskStatusValidationPipe) status: TaskStatus,
         @GetUser() user: UserInterface
     ):Promise<TaskInterface>{
+        console.log(id)
         return this.tasksService.updateTaskStatus(id, user, status);
     }
 }

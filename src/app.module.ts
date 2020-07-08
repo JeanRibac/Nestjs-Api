@@ -7,10 +7,10 @@ import { join } from 'path';
 
 @Module({
   imports: [
-    // ServeStaticModule.forRoot({
-    //   rootPath: join(__dirname, '../../client', 'build'),
-    //   exclude: ['/api*'],
-    // }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '../client', 'build'),
+      exclude: ['/api*'],
+    }),
     TasksModule,
     AuthModule,
     MongooseModule.forRoot('mongodb://localhost:27017/NestJsMongoIntegration'),
