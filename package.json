@@ -12,8 +12,8 @@
     "dev": "concurrently \"npm run start:dev --prefix server\" \"npm run start --prefix client\"",
     "client": "cd client && npm install --save && npm run build",
     "server": "cd server && npm install",
-    "install": "concurrently \"npm run client\" \"npm run server --prefix client\"",
-    "start": "npm run install && node server/dist/main"
+    "inst": "concurrently \"npm run client\" \"npm run server\"",
+    "start": "npm run inst && node server/dist/main"
   },
   "repository": {
     "type": "git",
