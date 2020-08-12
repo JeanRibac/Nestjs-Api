@@ -13,7 +13,7 @@
     "client": "cd client && npm install --save && npm run build",
     "server": "cd server && npm install --save && npm install",
     "inst": "concurrently \"npm run client\" \"npm run server\"",
-    "start": "concurrently \"npm run inst\" \"node server/dist/main\""
+    "start": "concurrently \"npm run inst\" \"node server/main\""
   },
   "repository": {
     "type": "git",
