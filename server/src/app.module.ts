@@ -13,7 +13,7 @@ import { join } from 'path';
     }),
     TasksModule,
     AuthModule,
-    MongooseModule.forRoot('mongodb://localhost:27017/NestJsMongoIntegration'),
+    MongooseModule.forRoot('mongodb+srv://jeanribac95:1234@cluster0.xzehe.mongodb.net/<dbname>?retryWrites=true&w=majority'),
   ],
 })
 export class AppModule {}
