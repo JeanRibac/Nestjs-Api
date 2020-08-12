@@ -12,7 +12,7 @@
     "dev": "concurrently \"npm run start:dev --prefix server\" \"npm run start --prefix client\"",
     "client": "cd client && npm run build",
     "server": "cd server && npm install",
-    "inst": "npm run client",
+    "inst": "concurrently \"npm run client\" \"npm run server\"",
     "start": "npm run inst && node server/dist/main"
   },
   "repository": {
