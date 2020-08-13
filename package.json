@@ -8,12 +8,12 @@
   },
   "devDependencies": {},
   "scripts": {
-    "prod": "cd client && npm run build && cd .. && cd server && npm run start",
+        "prod": "cd client && npm run build && cd .. && cd server && npm run start",
     "dev": "concurrently \"npm run start:dev --prefix server\" \"npm run start --prefix client\"",
     "client": "cd client && npm install --save && npm run build",
-    "server": "cd server && npm install --save && npm install",
-    "inst": "concurrently \"npm run client\" \"npm run server\"",
-    "start": "concurrently \"npm run inst\" \"node server/main\""
+    "server": "cd server && npm install && npm run build && node dits/main.js ",
+    "inst": "concurrently \"npm run client\" \"npm run server --prefix client\"",
+    "start": "concurrently \"npm run server\" \" npm run client\""
   },
   "repository": {
     "type": "git",
