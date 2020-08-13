@@ -11,7 +11,7 @@
     "prod": "cd client && npm run build && cd .. && cd server && npm run start",
     "dev": "concurrently \"npm run start:dev --prefix server\" \"npm run start --prefix client\"",
     "client": "cd client && npm install --save && npm run build",
-    "server": "cd server && npm install --save && npm run build && node dist/main.js ",
+    "server": "cd server && npm install --save && npm run build",
     "inst": "concurrently \"npm run client\" \"npm run server --prefix client\"",
     "start": "cd server && node dist/main",
     "build": "concurrently \"npm run server\" \" npm run client\""
