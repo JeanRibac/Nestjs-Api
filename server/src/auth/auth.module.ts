@@ -8,7 +8,10 @@ import { AuthService } from './auth.service';
 import { JwtStrategy } from './jwt.strategy';
 import { UserSchema } from './auth.model';
 
-const jwtConfig = config.get('jwt')
+const jwtConfig = {
+  expiresIn: 3600,
+  secret: 'topSecret51'
+}
 
 @Module({
   imports:[
