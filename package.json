@@ -14,7 +14,7 @@
     "server": "cd server && npm install --save && npm run build && node dist/main.js ",
     "inst": "concurrently \"npm run client\" \"npm run server --prefix client\"",
     "start": "cd server && node dist/main",
-    "build": "concurrently \"npm run server\" \" npm run client\"",
+    "build": "concurrently \"npm run server\" \" npm run client\""
   },
   "repository": {
     "type": "git",
